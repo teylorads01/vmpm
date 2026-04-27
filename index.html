@@ -11,24 +11,37 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://i.imgur.com" crossorigin>
-  <link rel="preload" as="image" href="https://i.imgur.com/HFY7nCt.png" fetchpriority="high">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=DM+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://i.imgur.com/HFY7nCt.webp" type="image/webp" fetchpriority="high">
 
-  <!-- UTMify -->
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
+  <!-- Google Fonts (non-blocking) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=DM+Sans:wght@400..700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=DM+Sans:wght@400..700&display=swap"></noscript>
+
+  <!-- UTMify (carregamento adiado para não bloquear o render) -->
   <script>
-    window.pixelId = "69de6d5d1b26a57b71da415e";
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-    document.head.appendChild(a);
+    (function () {
+      function loadUtmify() {
+        var s1 = document.createElement("script");
+        s1.src = "https://cdn.utmify.com.br/scripts/utms/latest.js";
+        s1.async = true; s1.defer = true;
+        s1.setAttribute("data-utmify-prevent-xcod-sck", "");
+        s1.setAttribute("data-utmify-prevent-subids", "");
+        document.head.appendChild(s1);
+
+        window.pixelId = "69de6d5d1b26a57b71da415e";
+        var s2 = document.createElement("script");
+        s2.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+        s2.async = true; s2.defer = true;
+        document.head.appendChild(s2);
+      }
+      if (document.readyState === "complete") {
+        ("requestIdleCallback" in window) ? requestIdleCallback(loadUtmify, { timeout: 2000 }) : setTimeout(loadUtmify, 1200);
+      } else {
+        window.addEventListener("load", function () {
+          ("requestIdleCallback" in window) ? requestIdleCallback(loadUtmify, { timeout: 2000 }) : setTimeout(loadUtmify, 1200);
+        });
+      }
+    })();
   </script>
 
   <link rel="stylesheet" href="style.css" />
@@ -50,7 +63,10 @@
       <p class="subtitle reveal">Precisa só saber onde procurar, quando comprar e o que nunca fazer.</p>
       <p class="lead reveal">A gente criou um guia e um app completo com tudo que aprendemos sobre viajar bem sem se endividar. Passagens mais baratas. Hospedagem sem pagar a mais. Comer bem gastando pouco. Tudo organizado e pronto pra usar.</p>
       <div class="hero-mockup reveal">
-        <img src="https://i.imgur.com/HFY7nCt.png" alt="App Viaje Mais, Gaste Menos" width="1536" height="1024" fetchpriority="high" decoding="async" />
+        <picture>
+          <source srcset="https://i.imgur.com/HFY7nCt.webp" type="image/webp" />
+          <img src="https://i.imgur.com/HFY7nCt.png" alt="App Viaje Mais, Gaste Menos" width="1536" height="1024" fetchpriority="high" decoding="async" />
+        </picture>
       </div>
       <div class="reveal">
         <a href="#planos" class="btn btn-lg">Quero viajar mais gastando menos →</a>
